@@ -1,23 +1,19 @@
-pipeline{
-    agent{
-        label "jenkins-agent"
+pipeline {
+    agent { label 'agent' }
+    tools {
+        jdk 'Java17'
+        maven 'Maven3'
     }
-    tools{
-        jdk 'java17'
-        maven 'maven3'
-    }
-    stages{
-        stage("Cleanup workspace"){
-            steps{
+     stages{
+        stage("Cleanup Workspace"){
+                steps {
                 cleanWs()
-            }
+                }
+        }
+         stage("Checkout from SCM"){
+                steps {
+                    git branch: 'main', credentialsId: 'github', url: 'https://github.com/manikandan2297/new/tree/main'
+                }
         }
     }
-    stages{
-        stage("Checkout from SCM"){
-            steps{
-                git branch:'main', credentialsId: 'github', url: 'https://github.com/manikandan2297/new'
-            }
-        }
-    } 
-}
+}       
