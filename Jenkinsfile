@@ -15,5 +15,15 @@ pipeline {
                     git branch: 'master', credentialsId: 'github', url: 'https://github.com/manikandan2297/new'
                 }
         }
+        stage("Build Application"){
+            steps{
+                sh "mvn clean package"
+            }
+        }
+        stage("test Application"){
+            steps{
+                sh "mvn test"
+            }
+        }
     }
 }   
