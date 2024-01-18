@@ -14,11 +14,16 @@ pipeline {
                 steps {
                     git branch: 'master', credentialsId: 'github', url: 'https://github.com/manikandan2297/new'
                 }
-        }stage(" Maven Clean Package"){
-      def mavenHome =  tool name: "Maven", type: "maven"
-      def mavenCMD = "${mavenHome}/bin/mvn"
-      sh "${mavenCMD} clean package"
+        }      
+        stage("Build Application"){
+            steps {
+                 sh "mvn clean package"
+            }
+       }
+       stage("Test Application"){
+           steps {
+                 sh "mvn test"
+           }
+       }
     }
-
-    }
-}   
+}    
